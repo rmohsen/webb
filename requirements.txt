@@ -1,3 +1,4 @@
+celery == 4.02
 dj-database-url==0.4.1
 Django==1.11.1
 gunicorn==19.6.0
