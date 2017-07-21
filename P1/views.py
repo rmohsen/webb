@@ -42,7 +42,6 @@ def auth_register(request):
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
             email = request.POST['email']
-            return HttpResponse('Hi')
             user = User.objects.create_user(student_number, password=password)
             user.last_name = last_name
             user.first_name = first_name
