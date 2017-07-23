@@ -9,13 +9,22 @@ class Post(models.Model):
     std_id = models.ForeignKey(User, on_delete=models.CASCADE)
     blog_name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Comment(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     std_id = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(default="")
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Post_Word(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     word = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.post.id + self.word)
