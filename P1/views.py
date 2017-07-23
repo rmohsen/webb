@@ -173,8 +173,6 @@ def blog_comment(request):
 
 
 def search_blog(request):
-    global ma
-    l = list()
     pos_l = dict()
     if request.method == 'POST':
         try:
@@ -184,11 +182,10 @@ def search_blog(request):
                     p = Post_Word.objects.filter(word=l1).all()
                     for p1 in p:
                         v = pos_l.get(p1.post.id)
-                        if v == None:
-                            pos_l.update(({p1.post.id:1}))
-                        else :
+                        if v is None:
+                            pos_l.update(({p1.post.id: 1}))
+                        else:
                             pos_l[p1.post.id] = v + 1
-                ma = max(pos_l.values())
                 f_l = sorted(pos_l.items(), key=lambda x: x[1])
                 return HttpResponse(f_l[0:10])
             else:
