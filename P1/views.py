@@ -12,7 +12,7 @@ import datetime
 
 
 def index(request):
-    return render(request, 'templates/site/index.html')
+    return render(request, 'site/index.html')
 
 
 def detail(request, question_id):
