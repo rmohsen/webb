@@ -1,53 +1,87 @@
-# Heroku Django Starter Template
+# Project Title
 
-An utterly fantastic project starter template for Django 1.11.
+This project is Web Programing course project which tend to build blog-maker site
 
-## Features
+## Getting Started
 
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-## How to Use
+### Prerequisites
 
-To use this project, follow these steps:
+You need Python 3.6 and Django 1.11
+```
+Give examples
+```
 
-1. Create your working environment.
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
+### Installing
 
-## Creating Your Project
+A step by step series of examples that tell you have to get a development env running
 
-Using this template to create a new Django app is easy::
+Say what the step will be
 
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
+```
+Give the example
+```
 
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
+And repeat
 
-You can replace ``helloworld`` with your desired project name.
+```
+until finished
+```
 
-## Deployment to Heroku
+End with an example of getting some data out of the system or using it for a little demo
 
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
+## Running the tests
 
-    $ heroku create
-    $ git push heroku master
+Explain how to run the automated tests for this system
 
-    $ heroku run python manage.py migrate
+### Break down into end to end tests
 
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
+Explain what these tests test and why
 
-## Using Python 2.7?
+```
+Give an example
+```
 
-Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
+### And coding style tests
 
+Explain what these tests test and why
 
-## License: MIT
+```
+Give an example
+```
 
-## Further Reading
+## Deployment
 
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
+
