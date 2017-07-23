@@ -206,7 +206,7 @@ def search_blog(request):
                         else:
                             pos_l[p1.post.id] = v + 1
                 f_l = sorted(pos_l.items(), key=lambda x: x[1])
-                return HttpResponse(f_l[0:10])
+                return JsonResponse(f_l[0:10])
             else:
                 return Http404("1")
         except:
