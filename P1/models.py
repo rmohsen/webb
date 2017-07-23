@@ -9,6 +9,7 @@ class Post(models.Model):
     summary = models.TextField(default="")
     text = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    length = models.IntegerField()
 
     def __str__(self):
         return str(self.id)
@@ -25,6 +26,7 @@ class Post(models.Model):
             else:
                 p.count += 1
             p.save()
+        self.length = len(l)
         return
 
 

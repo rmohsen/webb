@@ -191,11 +191,12 @@ def search_blog(request):
                 for l1 in l:
                     p = Post_Word.objects.filter(word=l1).all()
                     for p1 in p:
+                        length = p1.post.length
                         v = pos_l.get(p1.post.id)
                         if v is None:
-                            pos_l.update(({p1.post.id: 1}))
+                            pos_l.update(({p1.post.id: 1 / length}))
                         else:
-                            pos_l[p1.post.id] = v + 1
+                            pos_l[p1.post.id] = v + 1/length
                 f_l = sorted(pos_l.items(), key=lambda x: x[1])
                 return JsonResponse(f_l[0:10])
             else:
