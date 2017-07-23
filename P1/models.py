@@ -7,16 +7,13 @@ class Post(models.Model):
     summary = models.TextField(default="")
     text = models.TextField(default="")
     std_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog_name = models.CharField(max_length=200)
 
 
 class Comment(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     std_id = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(default="")
-
-
-class Blog(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Post_Word(models.Model):
