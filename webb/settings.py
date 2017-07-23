@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import dj_database_url
-import djcelery
-
-djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,7 +41,15 @@ INSTALLED_APPS = [
     'P1',
     'django_celery_beat',
     'django_celery_results',
+    'opbeat.contrib.django',
 ]
+
+OPBEAT = {
+    'ORGANIZATION_ID': 'b3d84ff7352e4e1a92cc0806d757146f',
+    'APP_ID': '7e0d077512',
+    'SECRET_TOKEN': '70b9da455b14f0bbe589740c45fb34c03efb5e03',
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
 ]
 
 ROOT_URLCONF = 'webb.urls'
