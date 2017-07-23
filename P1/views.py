@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from django.views.decorators.csrf import csrf_protect
@@ -37,57 +38,63 @@ def auth_register(request):
     # post
     if request.method == 'POST':
         try:
-            student_number = request.POST['student_number']
+            if not ('username' in request.POST and 'password' in request.POST):
+                return JsonResponse({'status': '-1', 'errors': 'insufficient data'})
+            username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
             email = request.POST['email']
-            user = User.objects.create_user(student_number, password=password)
+            user = User.objects.create_user(username=username, password=password)
             user.last_name = last_name
             user.first_name = first_name
             user.email = email
             user.save()
         except:
-            raise Http404("problem1!")
-        return HttpResponse('successful sign up')
+            raise JsonResponse({'status': -1, 'error': '404'})
+        return JsonResponse({'status': '1', 'id': user.id})
 
 
 def auth_login(request):
     # post
     if request.method == 'POST':
         try:
+            if not ('username' in request.POST and 'password' in request.POST):
+                return JsonResponse({'status': '-1', 'errors': 'insufficient data'})
             student_number = request.POST.get('student_number')
             password = request.POST['password']
             user = authenticate(request, username=student_number, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponse('successful login')
+                return JsonResponse({'status': '1', 'id': user.id})
             else:
-                return HttpResponse('unsuccessful login')
+                return JsonResponse({'status': '-1', 'error': 'incorrect username or password'})
                 # No backend authenticated the credentials
         except:
-            raise Http404("problem in sending data")
+            return JsonResponse({'status': '-1', 'error': '404'})
     pass
 
 
 def blog_posts(request):
     # get
     if not request.user.is_authenticated:
-        return HttpResponse('not auth')
+        return JsonResponse({'status': '-1', 'error': 'login first'})
         # return render(request, 'polls/test.html', 'login plz')
     if request.method == 'GET':
-        count = '1'
+        count = '5'
         offset = '0'
         try:
             if 'count' in request.GET:
                 count = request.GET['count']
             if 'offset' in request.GET:
                 offset = request.GET['offset']
-            d = Post.objects.filter(std_id=request.user.id).all()  # [int(offset), int(offset) + int(count)]
-            return HttpResponse(d[int(offset):int(offset) + int(count)])
+            d = Post.objects.filter(user=request.user.id).all()[int(offset):int(offset) + int(count)]
+            pd = dict
+            for d1 in d:
+                pd.update({d1.id: d1.title})
+            return JsonResponse({'status': '1', 'posts': pd})
         except:
-            raise Http404('Problem!')
-
+            return JsonResponse({'status': '-1', 'error': '404'})
     pass
 
 
@@ -103,11 +110,13 @@ def blog_post(request):
                 post_id = request.GET['id']
                 p = Post.objects.get(id=post_id)
                 if p is None:
-                    return render(request, 'polls/index.html')
-                return HttpResponse(p.text)
-                # return render(request, 'polls/test.html', p)
+                    return JsonResponse({'status': '-1', 'error': 'no such post'})
+                else:
+                    return JsonResponse({'status': '1', 'title': p.title, 'summary': p.summary, 'text': p.text,})
+            else:
+                return JsonResponse({'status': '-1', 'error': 'insufficient data'})
         except:
-            raise Http404('problem')
+            return JsonResponse({'status': '-1', 'error': '404'})
     elif request.method == 'POST' and request.user.is_authenticated:
         try:
             if 'title' in request.POST:
@@ -116,12 +125,13 @@ def blog_post(request):
                 summary = request.POST['summary']
             if 'text' in request.POST:
                 text = request.POST['text']
-            std_id = request.user
-            post = Post(title=str(title), summary=str(summary), text=str(text), std_id=std_id)
+            user = request.user
+            post = Post(title=str(title), summary=str(summary), text=str(text), user=user)
             post.save()
+            return JsonResponse({'status': '1', 'post id': post.id})
         except:
-            raise Http404('problemIC')
-    return HttpResponse('success')
+            return JsonResponse({'status': '-1', 'error': '404'})
+    return JsonResponse({'status': '-1', 'error': 'user is not authenticate'})
 
 
 def blog_comments(request):
@@ -135,12 +145,15 @@ def blog_comments(request):
                     count = request.GET['count']
                 if 'offset' in request.GET:
                     offset = request.GET['offset']
-                c = Comment.objects.filter(post_id=post_id).all()
-                return HttpResponse(c[int(offset): int(offset) + int(count)])
+                c = Comment.objects.filter(post_id=post_id).all()[int(offset): int(offset) + int(count)]
+                cc = dict
+                for c1 in c:
+                    cc.update({c1.id:c1.text})
+                return JsonResponse({'status': '1','comments': cc})
             else:
-                return HttpResponse('post not found')
+                return JsonResponse({'status': '-1', 'error': 'post not found'})
         except:
-            raise Http404('Problem!')
+            return JsonResponse({'status': '-1', 'error': '404'})
     # get
     # post_id
     # count (اختیاری)
@@ -153,18 +166,24 @@ def blog_comment(request):
     # post
     if request.method == 'POST':
         try:
-            if 'post_id' in request.POST and 'text' in request.POST:
-                post_id = request.POST['post_id']
-                text = request.POST['text']
-                post = Post.objects.get(id=post_id)
-                user = User.objects.get(id=request.user.id)
-                com = Comment(post_id=post, text=text, std_id=user)
-                com.save()
-                return HttpResponse('success')
+            if 'post_id' in request.POST:
+                if 'text' in request.POST:
+                    post_id = request.POST['post_id']
+                    text = request.POST['text']
+                    post = Post.objects.get(id=post_id)
+                    user = User.objects.get(id=request.user.id)
+                    com = Comment(post=post, text=text, user=user)
+                    com.save()
+                    return JsonResponse('success')
+                else:
+                    return JsonResponse({'status': '-1', 'error': 'insufficient data'})
             else:
-                return render(request, 'polls/test.html', 'problem in sending data')
+                return JsonResponse({'status': '-1', 'error': 'insufficient data'})
         except:
-            raise Http404('Problem')
+            return JsonResponse({'status': '-1', 'error': '404'})
+    else:
+        return JsonResponse({'status': '-1', 'error': 'USE POST METHOD TO SEND DATA'})
+
     # post_id
     # text
     pass
