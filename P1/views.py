@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from django.views.decorators.csrf import csrf_protect
 
-from P1.models import Post, Comment
+from P1.models import Post, Comment, Post_Word
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import authenticate, login
 from django.template import loader
@@ -170,3 +170,28 @@ def blog_comment(request):
     pass
 
     # Create your views here.
+
+
+def search_blog(request):
+    global ma
+    l = list()
+    pos_l = dict()
+    if request.method == 'POST':
+        try:
+            if 'search' in request.POST:
+                l = str(request.POST['search']).split(" ")
+                for l1 in l:
+                    p = Post_Word.objects.filter(word=l1).all()
+                    for p1 in p:
+                        v = pos_l.get(p1.post.id)
+                        if v == None:
+                            pos_l.update(({p1.post.id:1}))
+                        else :
+                            pos_l[p1.post.id] = v + 1
+                ma = max(pos_l.values())
+                f_l = sorted(pos_l.items(), key=lambda x: x[1])
+                return HttpResponse(f_l[0:10])
+            else:
+                return Http404("1")
+        except:
+            return Http404("2")
