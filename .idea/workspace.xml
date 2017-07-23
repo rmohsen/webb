@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ab83917-dee0-4787-a22d-3fe58ffb2968" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/webb/static/humans.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/P1/views.py" afterPath="$PROJECT_DIR$/P1/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webb/settings.py" afterPath="$PROJECT_DIR$/webb/settings.py" />
     </list>
     <ignored path="webb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -136,16 +135,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="humans.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webb/static/humans.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -250,20 +239,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="webb" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="webb" />
@@ -631,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1500817862918</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="debug false&#10;">
+      <created>1500818011934</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1500818011934</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -693,7 +675,8 @@
     <MESSAGE value="?" />
     <MESSAGE value="csrf" />
     <MESSAGE value="search&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="search&#10;" />
+    <MESSAGE value="debug false&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug false&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
