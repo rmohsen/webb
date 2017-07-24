@@ -48,6 +48,10 @@ class Post_Word(models.Model):
         return str(str(self.post.id) + str(self.word))
 
 
+class Blog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 @receiver(post_save, sender=Post)
 def update_post(sender, instance, **kwargs):
     from .task import compute_words

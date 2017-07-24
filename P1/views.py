@@ -4,11 +4,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from django.views.decorators.csrf import csrf_protect
 
-from P1.models import Post, Comment, Post_Word
+from P1.models import Post, Comment, Post_Word, Blog
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth import authenticate, login
 from django.template import loader
 import datetime
+from P1.forms import forms, RegisterForm
 
 
 def index(request):
@@ -31,6 +32,9 @@ def auth_register(request):
         try:
             if not ('username' in request.POST and 'password' in request.POST):
                 return JsonResponse({'status': '-1', 'errors': 'insufficient data'})
+            form = RegisterForm(request.POST)
+            if form.is_valid() is None:
+                return JsonResponse({'status': '-1', 'errors': 'username or password have problem'})
             username = request.POST['username']
             password = request.POST['password']
             first_name = request.POST['first_name']
@@ -39,11 +43,13 @@ def auth_register(request):
             user = User.objects.create_user(username=username, password=password)
             user.last_name = last_name
             user.first_name = first_name
+
             user.email = email
             user.save()
         except:
             raise JsonResponse({'status': -1, 'error': '404'})
-        return JsonResponse({'status': '1', 'id': user.id})
+        b = Blog.objects.get(user=user)
+        return JsonResponse({'status': '1', 'id': b.id})
 
 
 def auth_login(request):
