@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^blog/comment$', views.blog_comment),
     url(r'auth/register$',views.auth_register),
     url(r'auth/login$', views.auth_login),
-    url(r'blog/search$',views.search_blog()),
+    url(r'blog/search$',views.search_blog),
     # ex: /polls/
     url(r'^$', views.index, name='index'),
 ]

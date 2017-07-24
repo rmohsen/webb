@@ -9,7 +9,7 @@ class Post(models.Model):
     summary = models.TextField(default="")
     text = models.TextField(default="")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    length = models.IntegerField()
+    length = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
@@ -42,7 +42,7 @@ class Comment(models.Model):
 class Post_Word(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     word = models.CharField(max_length=200)
-    count = models.IntegerField()
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return str(str(self.post.id) + str(self.word))

@@ -15,15 +15,12 @@ Give examples
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
+first setup requirements with pip install
 ```
-Give the example
+pip instal celery
 ```
 
-And repeat
+and so on
 
 ```
 until finished
